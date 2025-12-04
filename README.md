@@ -2,6 +2,7 @@
 
 
 ## Structure
+```plaintext
 matrix_multiplication_master_modified/
 ├── scripts/
 │   ├── run_benchmarks.sh
@@ -21,6 +22,8 @@ matrix_multiplication_master_modified/
 ├── Makefile.orig_from_os_codes
 ├── OS_codes.txt
 └── README.md
+```
+
 
 ## Build
 To compile everything:
