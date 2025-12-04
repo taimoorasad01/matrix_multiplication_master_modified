@@ -2,12 +2,26 @@
 
 
 ## Structure
-- `src/` : C source files for matrix multiplication (sequential, pthreads, OpenMP, MPI) and merge sort (sequential, pthreads, OpenMP).
-- `build/` : build outputs (generated after `make`).
-- `results/` : scripts write outputs here.
-- `scripts/` : helper scripts to run benchmarks.
-- `Makefile` : unified Makefile to build both matrix and sorting programs.
-- `README.md` : this file.
+matrix_multiplication_master_modified/
+├── scripts/
+│   ├── run_benchmarks.sh
+│   └── run_sort_benchmarks.sh
+│
+├── src/
+│   ├── mpi_matrix.c
+│   ├── openmp_matrix.c
+│   ├── openmp_sort.c
+│   ├── pthread_matrix.c
+│   ├── pthread_sort.c
+│   ├── sequential_matrix.c
+│   └── sequential_sort.c
+│
+├── .gitattributes
+├── Makefile
+├── Makefile.orig_from_os_codes
+├── OS_codes.txt
+└── README.md
+
 
 ## Build
 To compile everything:
