@@ -22,7 +22,6 @@ matrix_multiplication_master_modified/
 ├── OS_codes.txt
 └── README.md
 
-
 ## Build
 To compile everything:
 ```
