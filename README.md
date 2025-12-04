@@ -1,7 +1,5 @@
 # Matrix Multiplication & Sorting — Modified Project
 
-This folder was prepared by ChatGPT using your `OS_codes.txt` as the source for the C code files and scripts.  
-The `OS_codes.txt` used as source is included in the project root for reference. (file: `OS_codes.txt`) — see original uploaded file. fileciteturn0file0
 
 ## Structure
 - `src/` : C source files for matrix multiplication (sequential, pthreads, OpenMP, MPI) and merge sort (sequential, pthreads, OpenMP).
@@ -59,8 +57,3 @@ make clean
   ./run_benchmarks.sh
   ./run_sort_benchmarks.sh
   ```
-
-## Notes
-- Some generated binaries and heavy test sizes may consume significant RAM/CPU. Adjust sizes in scripts before running if needed.
-- This project was assembled by extracting code blocks placed in `OS_codes.txt` and inserting them into `src/` as-is.
-
