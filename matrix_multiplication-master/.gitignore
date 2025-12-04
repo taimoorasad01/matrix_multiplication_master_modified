@@ -1,6 +1,0 @@
-bin/seq
-bin/omp
-bin/thread
-bin/thread2
-bin/mpi
-data/*txt
