@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <omp.h>
+#include <time.h>
+#include <string.h>
+
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    
+    int *L = (int*)malloc(n1 * sizeof(int));
+    int *R = (int*)malloc(n2 * sizeof(int));
+    
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+    
+    int i = 0, j = 0, k = left;
+    
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+    
+    free(L);
+    free(R);
+}
+
+void merge_sort(int arr[], int left, int right, int depth) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        
+        if (depth > 0) {
+            #pragma omp task
+            merge_sort(arr, left, mid, depth - 1);
+            
+            #pragma omp task
+            merge_sort(arr, mid + 1, right, depth - 1);
+            
+            #pragma omp taskwait
+        } else {
+            merge_sort(arr, left, mid, 0);
+            merge_sort(arr, mid + 1, right, 0);
+        }
+        
+        merge(arr, left, mid, right);
+    }
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        printf("Usage: %s <array_size> <num_threads>\n", argv[0]);
+        return 1;
+    }
+    
+    int n = atoi(argv[1]);
+    int num_threads = atoi(argv[2]);
+    omp_set_num_threads(num_threads);
+    
+    printf("OpenMP Merge Sort: %d elements with %d threads\n", n, num_threads);
+    
+    int *arr = (int*)malloc(n * sizeof(int));
+    
+    srand(time(NULL));
+    for (int i = 0; i < n; i++) {
+        arr[i] = rand() % 100000;
+    }
+    
+    double start = omp_get_wtime();
+    
+    #pragma omp parallel
+    {
+        #pragma omp single
+        merge_sort(arr, 0, n - 1, 4);
+    }
+    
+    double end = omp_get_wtime();
+    printf("Time taken: %.6f seconds\n", end - start);
+    
+    free(arr);
+    return 0;
+}
